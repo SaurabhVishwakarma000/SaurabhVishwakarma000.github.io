@@ -2710,13 +2710,27 @@
             >
           </div>
         </div>
-      <p class="footer-copy">
-          © 2026 Saurabh Vishwakarma. All rights reserved.<br>
-          <span style="opacity: 0.6; font-size: 0.65rem; margin-top: 5px; display: block;">
-            Also known online as Nitin Vishwakarma, Saurabh_nsv, and Saurabhvk24. <br>
-            Full Stack Developer | Founder of 24Zen
-          </span>
-        </p>
+     <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; margin-top: 2.2rem; gap: 1rem;">
+          
+          <!-- Aapka Pehle wala SEO Text (Left Side) -->
+          <p class="footer-copy" style="margin-top: 0;">
+            © 2026 Saurabh Vishwakarma. All rights reserved.<br>
+            <span style="opacity: 0.6; font-size: 0.65rem; margin-top: 5px; display: block;">
+              Also known online as Nitin Vishwakarma, Saurabh_nsv, and Saurabhvk24. <br>
+              Full Stack Developer | Founder of 24Zen
+            </span>
+          </p>
+          
+          <!-- Naya Visit Counter (Right Corner) -->
+          <div style="display: flex; align-items: center; gap: 6px; font-size: 0.7rem; color: rgba(243, 234, 217, 0.4); font-family: var(--font-sans);">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+              <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+            <span id="visit-counter">...</span>
+          </div>
+
+        </div>
       </div>
     </footer>
 
@@ -3052,6 +3066,25 @@
         emailInput.addEventListener("input", function () {
           if (emailInput.checkValidity()) emailError.classList.remove("show");
         });
+      })();
+
+      // --- Eye Visit Counter API ---
+      (function() {
+        // Ek unique key banayi hai aapke portfolio ke liye
+        fetch('https://countapi.mileshilliard.com/api/v1/hit/saurabhvk24_portfolio_views')
+          .then(res => res.json())
+          .then(data => {
+            const counterElement = document.getElementById('visit-counter');
+            if(counterElement && data.value) {
+              // Number ko format karta hai (e.g. 1000 ko 1,000 dikhayega)
+              counterElement.textContent = data.value.toLocaleString();
+            }
+          })
+          .catch(err => {
+            console.error("Counter API failed:", err);
+            const counterElement = document.getElementById('visit-counter');
+            if(counterElement) counterElement.textContent = '0';
+          });
       })();
     </script>
   </body>
